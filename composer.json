@@ -1,0 +1,33 @@
+{
+    "name": "hkulekci/turkish-stemmer-php",
+    "description": "Turkish Language Stemmer for PHP",
+    "type": "library",
+    "license": "Apache Software License, Version 2.0",
+    "authors": [
+        {
+            "name": "Haydar KULEKCI",
+            "email": "haydarkulekci@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "TurkishStemmer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TurkishStemmerTest\\": "src/"
+        }
+    },
+    "scripts": {
+        "coverage": "composer test -- --coverage-html ./coverage-report",
+        "test": "phpunit -c ./phpunit.xml"
+    }
+}
