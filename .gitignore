@@ -3,3 +3,5 @@
 phpunit.xml
 vendor/
 coverage-report/*
+composer.lock
+.phpunit.result.cache

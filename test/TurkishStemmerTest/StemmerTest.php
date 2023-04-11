@@ -7,9 +7,9 @@ use TurkishStemmer\Stemmer;
 class StemmerTest extends TestCase
 {
     /** @var Stemmer */
-    protected $stemmer;
+    protected Stemmer $stemmer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->stemmer = new Stemmer();
@@ -19,12 +19,12 @@ class StemmerTest extends TestCase
     /**
      * @dataProvider dataProvider()
      */
-    public function testStemmer($word1, $word2)
+    public function testStemmer($word1, $word2): void
     {
         $this->assertEquals($word1, $this->stemmer->stem($word2));
     }
 
-    public function dataProvider()
+    public function dataProvider(): array|\Generator
     {
         $i = 0;
         $f = fopen(__DIR__ . '/../resources/test_words.csv', 'r');
