@@ -2,7 +2,7 @@
     "name": "hkulekci/turkish-stemmer-php",
     "description": "Turkish Language Stemmer for PHP",
     "type": "library",
-    "license": "Apache Software License, Version 2.0",
+    "license": "Apache-2.0",
     "version": "2.0.0",
     "authors": [
         {
