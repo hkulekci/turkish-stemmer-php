@@ -6,9 +6,9 @@ use TurkishStemmer\Transition;
 
 class State implements StateInterface
 {
-    protected $initialState;
-    protected $finalState;
-    protected $suffixes;
+    protected bool $initialState;
+    protected bool $finalState;
+    protected mixed $suffixes;
 
     protected $storage;
 
@@ -42,6 +42,12 @@ class State implements StateInterface
     public function isFinalState(): bool
     {
         return $this->finalState;
+    }
+
+    public function isEqual(StateInterface $state): bool
+    {
+        return $this->isInitialState() === $state->isInitialState() &&
+            $this->isFinalState() === $state->isFinalState();
     }
 
     public function nextState(Suffix $suffix): ?StateInterface {

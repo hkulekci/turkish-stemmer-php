@@ -6,11 +6,11 @@ use TurkishStemmer\Suffix\Suffix;
 
 class Transition
 {
-    protected $startState;
-    protected $nextState;
-    protected $word;
-    protected $suffix;
-    protected $marked;
+    protected StateInterface $startState;
+    protected StateInterface $nextState;
+    protected string $word;
+    protected Suffix $suffix;
+    protected bool $marked;
 
     public function __construct(StateInterface $startState, StateInterface $nextState, $word, Suffix $suffix, bool $marked)
     {

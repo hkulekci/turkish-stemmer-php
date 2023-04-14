@@ -12,20 +12,20 @@ use TurkishStemmer\Suffix\Suffix;
 
 class Stemmer
 {
-    protected $protectedWords = [];
-    protected $vowelHarmonyExceptions = [];
-    protected $lastConsonantExceptions = [];
-    protected $averageStemSizeExceptions = [];
+    protected array $protectedWords = [];
+    protected array $vowelHarmonyExceptions = [];
+    protected array $lastConsonantExceptions = [];
+    protected array $averageStemSizeExceptions = [];
 
     protected $container;
 
     /**
      * Stemmer constructor.
      *
-     * @param array $protectedWords
-     * @param array $vowelHarmonyExceptions
-     * @param array $lastConsonantExceptions
-     * @param array $averageStemSizeExceptions
+     * @param array|null $protectedWords
+     * @param array|null $vowelHarmonyExceptions
+     * @param array|null $lastConsonantExceptions
+     * @param array|null $averageStemSizeExceptions
      */
     public function __construct(
         array $protectedWords = null,
@@ -183,26 +183,25 @@ class Stemmer
             $stem = $this->stemWord($wordToStem, $transition->getSuffix());
             if ($stem !== $wordToStem) {
                 if ($transition->getNextState()->isFinalState()) {
-                    foreach ($transitions as $key => $transitionToRemove) {
+                    for ($key = 0; $key < count($transitions); $key++) {
+                        $transitionToRemove = $transitions[$key];
                         /** @var Transition $transitionToRemove */
-                        if ($transitionToRemove->isMarked() ||
-                            (
-                                $transitionToRemove->getStartState() === $transition->getStartState() &&
-                                $transitionToRemove->getNextState() === $transition->getNextState()
-                            )
+                        if ((
+                                $transitionToRemove->getStartState()->isEqual($transition->getStartState()) &&
+                                $transitionToRemove->getNextState()->isEqual($transition->getNextState())
+                            ) || $transitionToRemove->isMarked()
                         ) {
                             unset($transitions[$key]);
                         }
                     }
                     $stems[] = $stem;
-                    $transitions = $transition->getNextState()->addTransitions($stem, $transitions, false);
+                    $transition->getNextState()->addTransitions($stem, $transitions, false);
 
                 } else {
-                    foreach ($transition->similarTransitions([$transition]) as $similar) {
-                        /** @var Transition $similar */
+                    foreach ($transition->similarTransitions($transitions) as $similar) {
                         $similar->setMarked(true);
                     }
-                    $transitions = $transition->getNextState()->addTransitions($stem, $transitions, true);
+                    $transition->getNextState()->addTransitions($stem, $transitions, true);
                 }
             }
         }

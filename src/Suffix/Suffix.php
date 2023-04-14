@@ -3,10 +3,10 @@ namespace TurkishStemmer\Suffix;
 
 class Suffix
 {
-    protected $name;
-    protected $pattern;
-    protected $optionalLetter;
-    protected $checkHarmony;
+    protected string $name;
+    protected string $pattern;
+    protected ?string $optionalLetter;
+    protected ?bool $checkHarmony;
 
     public function __construct(string $name, string $pattern, string $optionalLetter = null, bool $checkHarmony = null)
     {

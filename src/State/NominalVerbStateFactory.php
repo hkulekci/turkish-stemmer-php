@@ -9,6 +9,7 @@ class NominalVerbStateFactory
 {
     public function __construct(ContainerInterface $container)
     {
+        /** @var NominalVerbSuffixFactory $nominalVerbSuffix */
         $nominalVerbSuffix = $container->get(NominalVerbSuffixFactory::class);
 
         $container->set('NominalVerbState::A', new NominalVerbState($container,true, false, $nominalVerbSuffix->values()));
